@@ -46,3 +46,5 @@ resource "null_resource" "ansible" {
     }
   
 }
+
+#  terraform graph -type=plan | dot -Tpng > graph.png
