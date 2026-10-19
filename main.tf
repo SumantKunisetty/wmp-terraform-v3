@@ -20,6 +20,7 @@ variable "components"{
 }
 
 resource "aws_route53_record" "dns" {
+    depends_on = [ aws_instance.instance ]
     for_each = var.components
     zone_id = "Z06825681EGC79XN2OESW"
     name = "${each.key}-dev"
@@ -29,6 +30,7 @@ resource "aws_route53_record" "dns" {
 }
 
 resource "null_resource" "ansible" {
+    depends_on = [ aws_route53_record.dns ]
     for_each = var.components
     provisioner "remote-exec"  {
         connection {
